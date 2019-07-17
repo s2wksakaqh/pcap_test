@@ -33,16 +33,11 @@ int main(int argc, char* argv[]) {
         {
             if(packet[23]==0x06)
             {
-                uint16_t src_port = (uint8_t)packet[34]<<8 | (uint8_t)packet[35];
-                uint16_t dest_port = (uint8_t)packet[36]<<8 | (uint8_t)packet[37];
-                if((src_port == 80) || (dest_port == 80))
-                {
-                    printf("%u bytes captured\n", header->caplen);
-                    printEthernet(packet);
-                    printIp(packet);
-                    printTcp(packet);
-                    printData(packet);
-                }
+                printf("%u bytes captured\n", header->caplen);
+                printEthernet(packet);
+                printIp(packet);
+                printTcp(packet);
+                printData(packet);
             }
         }
     }

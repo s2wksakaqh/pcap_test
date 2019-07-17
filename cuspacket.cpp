@@ -86,15 +86,12 @@ void printTcp(const u_char* packet)
     printf("src  port : %d\n", ntohs(tcp_packet->src_port));
     printf("dest port : %d\n", ntohs(tcp_packet->dest_port));
     printf("URG : %d  ACK : %d  PSH : %d  RST : %d  SYN : %d  FIN : %d\n", tcp_packet->URG, tcp_packet->ACK, tcp_packet->PSH, tcp_packet->RST, tcp_packet->SYN, tcp_packet->FIN);
-    printf("****************************************************\n");
+
 }
 
 void printData(const u_char* packet)
 {
-    for(int i = 54; (packet[i]!=0) && (i < 64); i++)
-    {
-        printf("%x ", packet[i]);
-    }
-    printf("\n");
+    printf("bytes : %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x", packet[0], packet[1], packet[2], packet[3], packet[4], packet[5], packet[6], packet[7], packet[8], packet[9]);
+    printf("\n****************************************************\n");
 }
 
