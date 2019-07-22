@@ -80,8 +80,8 @@ void printIp(const u_char* packet)
 void printTcp(const u_char* packet)
 {
     struct tcp_header* tcp_packet;
-
-    tcp_packet = (struct tcp_header*)&packet[34];
+    int ethernet_header_size=((uint8_t)packet[14] & 15)*4;
+    tcp_packet = (struct tcp_header*)&packet[14+ethernet_header_size];
     printf("TCP HEADER\n");
     printf("src  port : %d\n", ntohs(tcp_packet->src_port));
     printf("dest port : %d\n", ntohs(tcp_packet->dest_port));
@@ -91,7 +91,14 @@ void printTcp(const u_char* packet)
 
 void printData(const u_char* packet)
 {
-    printf("bytes : %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x", packet[0], packet[1], packet[2], packet[3], packet[4], packet[5], packet[6], packet[7], packet[8], packet[9]);
+    int ethernet_header_size = ((uint8_t)packet[14] & 15)*4;
+    int tcp_header_size = (((uint8_t)packet[14+ethernet_header_size+12] & 240)>>4)*4;
+    int start_http_data = 14+ethernet_header_size+tcp_header_size;
+    printf("bytes : ");
+    for(int i = 0; i < 10; i++)
+    {
+       printf("%02x ", packet[start_http_data+i]);
+    }
     printf("\n****************************************************\n");
 }
 

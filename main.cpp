@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
         if (res == 0) continue;
         if (res == -1 || res == -2) break;
 
-        if(packet[12]==0x08 && packet[13]==0x00)
+        if(packet[12] == 0x08 && packet[13] == 0x00)
         {
             if(packet[23]==0x06)
             {
